@@ -1,5 +1,71 @@
 # CHƯƠNG 4: KẾT QUẢ THỰC NGHIỆM
 
+## 📋 MỤC LỤC
+
+- [4.1. TỔNG QUAN CÀI ĐẶT](#41-tổng-quan-cài-đặt)
+- [4.2. TẠO CƠ SỞ DỮ LIỆU](#42-tạo-cơ-sở-dữ-liệu)
+  - [4.2.1. Tạo Database và Schema](#421-tạo-database-và-schema)
+  - [4.2.2. Tạo các bảng chính](#422-tạo-các-bảng-chính)
+  - [4.2.3. Tạo Foreign Key Constraints](#423-tạo-foreign-key-constraints)
+  - [4.2.4. Insert Dữ liệu Mẫu](#424-insert-dữ-liệu-mẫu)
+    - [4.2.4.1. Insert dữ liệu bảng user_account](#4241-insert-dữ-liệu-bảng-user_account)
+    - [4.2.4.2. Insert dữ liệu bảng customer](#4242-insert-dữ-liệu-bảng-customer)
+    - [4.2.4.3. Insert dữ liệu bảng district](#4243-insert-dữ-liệu-bảng-district)
+    - [4.2.4.4. Insert dữ liệu bảng building](#4244-insert-dữ-liệu-bảng-building)
+    - [4.2.4.5. Insert dữ liệu bảng apartment](#4245-insert-dữ-liệu-bảng-apartment)
+    - [4.2.4.6. Insert dữ liệu bảng equipment](#4246-insert-dữ-liệu-bảng-equipment)
+    - [4.2.4.7. Insert dữ liệu bảng apartment_equipment](#4247-insert-dữ-liệu-bảng-apartment_equipment)
+    - [4.2.4.8. Insert dữ liệu bảng contract](#4248-insert-dữ-liệu-bảng-contract)
+    - [4.2.4.9. Tổng kết dữ liệu đã insert](#4249-tổng-kết-dữ-liệu-đã-insert)
+  - [4.2.5. File Script Hoàn Chỉnh](#425-file-script-hoàn-chỉnh)
+- [4.3. HỆ THỐNG PHÂN QUYỀN](#43-hệ-thống-phân-quyền)
+  - [4.3.1. Tạo Users và Roles](#431-tạo-users-và-roles)
+  - [4.3.2. Phân Quyền Chi Tiết](#432-phân-quyền-chi-tiết)
+  - [4.3.3. Test Phân Quyền](#433-test-phân-quyền)
+- [4.4. CÀI ĐẶT VIEWS](#44-cài-đặt-views)
+  - [4.4.1. View apartment_details](#441-view-apartment_details)
+  - [4.4.2. View active_contracts](#442-view-active_contracts)
+  - [4.4.3. View monthly_revenue](#443-view-monthly_revenue)
+  - [4.4.4. View available_apartments](#444-view-available_apartments)
+  - [4.4.5. View apartment_equipment_view](#445-view-apartment_equipment_view)
+  - [4.4.6. Kiểm tra tất cả Views đã tạo](#446-kiểm-tra-tất-cả-views-đã-tạo)
+- [4.5. CÀI ĐẶT STORED PROCEDURES](#45-cài-đặt-stored-procedures)
+  - [4.5.1. Stored Procedure CreateContract](#451-stored-procedure-createcontract)
+  - [4.5.2. Stored Procedure SearchApartments](#452-stored-procedure-searchapartments)
+  - [4.5.3. Function CalculateTotalRent](#453-function-calculatetotalrent)
+  - [4.5.4. Stored Procedure ManageApartmentEquipment](#454-stored-procedure-manageapartmentequipment)
+  - [4.5.5. Function GetApartmentStatus](#455-function-getapartmentstatus)
+- [4.6. CÀI ĐẶT TRIGGERS](#46-cài-đặt-triggers)
+  - [4.6.1. Trigger check_contract_dates](#461-trigger-check_contract_dates)
+  - [4.6.2. Trigger log_equipment_status_change](#462-trigger-log_equipment_status_change)
+  - [4.6.3. Trigger update_apartment_rented_status](#463-trigger-update_apartment_rented_status)
+  - [4.6.4. Kiểm tra tất cả Triggers](#464-kiểm-tra-tất-cả-triggers)
+- [4.7. CÀI ĐẶT INDEXES](#47-cài-đặt-indexes)
+  - [4.7.1. Index Optimization](#471-index-optimization)
+  - [4.7.2. Performance Testing](#472-performance-testing)
+- [4.8. SAO LƯU VÀ PHỤC HỒI](#48-sao-lưu-và-phục-hồi)
+  - [4.8.1. Tạo User Backup Chuyên Dụng](#481-tạo-user-backup-chuyên-dụng)
+  - [4.8.2. Thực Hiện Backup Database](#482-thực-hiện-backup-database)
+  - [4.8.3. Các Loại Backup](#483-các-loại-backup)
+  - [4.8.4. Automated Backup Script](#484-automated-backup-script)
+  - [4.8.5. Phục Hồi Database](#485-phục-hồi-database)
+  - [4.8.6. Backup Monitoring & Validation](#486-backup-monitoring--validation)
+  - [4.8.7. Backup Best Practices Implementation](#487-backup-best-practices-implementation)
+- [4.9. TESTING VÀ VALIDATION](#49-testing-và-validation)
+  - [4.9.1. Security Testing](#491-security-testing)
+  - [4.9.2. Performance Testing](#492-performance-testing)
+  - [4.9.3. Data Integrity Testing](#493-data-integrity-testing)
+  - [4.9.4. Business Logic Testing](#494-business-logic-testing)
+  - [4.9.5. Final Statistics](#495-final-statistics)
+- [4.10. TỔNG KẾT VÀ ĐÁNH GIÁ](#410-tổng-kết-và-đánh-giá)
+  - [4.10.1. Tóm Tắt Kết Quả Thực Nghiệm](#4101-tóm-tắt-kết-quả-thực-nghiệm)
+  - [4.10.2. Đánh Giá Performance](#4102-đánh-giá-performance)
+  - [4.10.3. Đánh Giá Tính Năng](#4103-đánh-giá-tính-năng)
+  - [4.10.4. Kinh Nghiệm Rút Ra](#4104-kinh-nghiệm-rút-ra)
+  - [4.10.5. Kết Luận](#4105-kết-luận)
+
+---
+
 ## 4.1. TỔNG QUAN CÀI ĐẶT
 
 Chương này trình bày chi tiết về việc cài đặt và kết quả thực nghiệm hệ thống quản lý căn hộ sử dụng MySQL. Hệ thống được triển khai đầy đủ các tính năng chính bao gồm:
@@ -25,6 +91,7 @@ USE apartment_db;
 Query OK, 1 row affected (0.01 sec)
 Database changed
 ```
+> **📸 Hình 4.1:** Tạo database apartment_db thành công
 
 ### 4.2.2. Tạo các bảng chính
 
@@ -58,6 +125,7 @@ mysql> DESCRIBE apartment;
 +---------------------+--------+------+-----+---------+----------------+
 10 rows in set (0.01 sec)
 ```
+> **📸 Hình 4.2:** Cấu trúc bảng apartment với các trường và constraints
 
 ### 4.2.3. Tạo Foreign Key Constraints
 
@@ -77,6 +145,7 @@ Create Table: CREATE TABLE `apartment` (
   CONSTRAINT `fk_apartment_building` FOREIGN KEY (`building_id`) REFERENCES `building` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
 ```
+> **📸 Hình 4.3:** Tạo foreign key constraint thành công
 
 ### 4.2.4. Insert Dữ Liệu Mẫu
 
@@ -105,6 +174,7 @@ mysql> INSERT INTO user_account (user_name, password, role) VALUES
 Query OK, 6 rows affected (0.01 sec)
 Records: 6  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.4:** Insert dữ liệu user_account thành công
 
 **Kiểm tra dữ liệu đã insert:**
 ```sql
@@ -121,6 +191,7 @@ mysql> SELECT id, user_name, role FROM user_account;
 +----+-----------+----------+
 6 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.5:** Dữ liệu user_account sau khi insert
 
 #### 4.2.4.2. Insert dữ liệu bảng customer
 
@@ -141,6 +212,7 @@ mysql> INSERT INTO customer (name, email, phone_number, user_account_id) VALUES
 Query OK, 3 rows affected (0.01 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.7:** Insert dữ liệu customer thành công
 
 **Kiểm tra dữ liệu customers:**
 ```sql
@@ -155,6 +227,7 @@ mysql> SELECT c.id, c.name, c.email, c.phone_number, u.user_name
 +----+---------------+-------------------------+--------------+-----------+
 3 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.8:** Kết quả join customer và user_account
 
 #### 4.2.4.3. Insert dữ liệu bảng district
 
@@ -179,6 +252,7 @@ mysql> INSERT INTO district (name, code, city, region) VALUES
 Query OK, 5 rows affected (0.01 sec)
 Records: 5  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.9:** Insert dữ liệu district thành công
 
 **Kiểm tra dữ liệu districts:**
 ```sql
@@ -194,6 +268,7 @@ mysql> SELECT * FROM district;
 +----+------------------+------+----------------+-----------+
 5 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.10:** Danh sách các quận/huyện đã insert
 
 #### 4.2.4.4. Insert dữ liệu bảng building
 
@@ -218,6 +293,7 @@ mysql> INSERT INTO building (name, address, contact_number, number_of_floors, to
 Query OK, 5 rows affected (0.01 sec)
 Records: 5  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.11:** Insert dữ liệu building thành công
 
 **Kiểm tra dữ liệu buildings với district:**
 ```sql
@@ -234,6 +310,7 @@ mysql> SELECT b.id, b.name, b.address, b.number_of_floors, b.type, d.name as dis
 +----+-----------------------+--------------------+------------------+-----------+------------------+
 5 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.12:** Kết quả join building và district
 
 #### 4.2.4.5. Insert dữ liệu bảng apartment
 
@@ -268,6 +345,7 @@ mysql> INSERT INTO apartment (name, floor_area, number_of_bedrooms, number_of_ba
 Query OK, 10 rows affected (0.01 sec)
 Records: 10  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.13:** Insert 10 căn hộ thành công
 
 **Kiểm tra dữ liệu apartments:**
 ```sql
@@ -289,6 +367,7 @@ mysql> SELECT a.id, a.name, a.floor_area, a.number_of_bedrooms, a.min_rate, a.re
 +----+----------+------------+--------------------+---------------------+----------+--------+-----------------------+
 10 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.14:** Danh sách apartment với thông tin building
 
 #### 4.2.4.6. Insert dữ liệu bảng equipment
 
@@ -323,6 +402,7 @@ mysql> INSERT INTO equipment (name, type, status, broken_fee) VALUES
 Query OK, 10 rows affected (0.01 sec)
 Records: 10  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.15:** Insert 10 thiết bị thành công
 
 **Kiểm tra dữ liệu equipment:**
 ```sql
@@ -343,6 +423,7 @@ mysql> SELECT * FROM equipment;
 +----+----------------------+------------+-------------+------------+
 10 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.16:** Danh sách thiết bị với trạng thái
 
 #### 4.2.4.7. Insert dữ liệu bảng apartment_equipment
 
@@ -377,6 +458,7 @@ mysql> INSERT INTO apartment_equipment (apartment_id, equipment_id) VALUES
 Query OK, 27 rows affected (0.01 sec)
 Records: 27  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.17:** Insert 27 quan hệ apartment-equipment thành công
 
 **Kiểm tra associations:**
 ```sql
@@ -404,6 +486,7 @@ mysql> SELECT a.name as apartment_name, e.name as equipment_name, e.type, e.stat
 +---------------+----------------------+------------+-------------+
 12 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.18:** Thiết bị của một số căn hộ mẫu
 
 #### 4.2.4.8. Insert dữ liệu bảng contract
 
@@ -424,6 +507,7 @@ mysql> INSERT INTO contract (apartment_id, customer_id, start_date, end_date, mo
 Query OK, 3 rows affected (0.01 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 ```
+> **📸 Hình 4.19:** Insert 3 hợp đồng thành công
 
 **Kiểm tra contracts với thông tin đầy đủ:**
 ```sql
@@ -449,6 +533,7 @@ mysql> SELECT
 +-------------+---------------+---------------+-----------------------+---------------------+---------------------+-------------+----------------+
 3 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.20:** Chi tiết hợp đồng thuê với thông tin đầy đủ
 
 #### 4.2.4.9. Tổng kết dữ liệu đã insert
 
@@ -476,6 +561,7 @@ mysql> SELECT
 | contract           |            3 |
 +--------------------+--------------+
 ```
+> **📸 Hình 4.21:** Thống kê tổng số records trong từng bảng
 
 **Kiểm tra integrity constraints:**
 ```sql
@@ -511,6 +597,7 @@ mysql> -- Kiểm tra foreign key constraints
 +---------------------------------------+
 1 row in set (0.00 sec)
 ```
+> **📸 Hình 4.22:** Kiểm tra tính toàn vẹn dữ liệu
 
 **Kết quả:** Đã insert thành công tổng cộng **62 records** vào 8 bảng chính với đầy đủ ràng buộc referential integrity.
 
@@ -569,6 +656,7 @@ UNION ALL SELECT 'contract', COUNT(*) FROM contract;
 | contract           |            3 |
 +--------------------+--------------+
 ```
+> **📸 Hình 4.23:** Script thực thi và thống kê kết quả
 
 ## 4.3. HỆ THỐNG PHÂN QUYỀN
 
@@ -588,7 +676,8 @@ Query OK, 0 rows affected (0.01 sec)
 
 mysql> CREATE USER 'apt_readonly'@'%' IDENTIFIED BY 'ReadPass111!@#';
 Query OK, 0 rows affected (0.01 sec)
-```
+```  
+> **📸 Hình 4.24:** Tạo 4 user chuyên dụng thành công
 
 **Kiểm tra users đã tạo:**
 ```sql
@@ -603,6 +692,7 @@ mysql> SELECT User, Host, account_locked, password_expired FROM mysql.user WHERE
 +-------------+-----------+----------------+------------------+
 4 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.25:** Danh sách user và trạng thái tài khoản
 
 ### 4.3.2. Phân Quyền Chi Tiết
 
@@ -620,6 +710,7 @@ mysql> SHOW GRANTS FOR 'apt_admin'@'localhost';
 +-----------------------------------------------------------------------------------+
 2 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.26:** Quyền admin với toàn quyền và grant option
 
 **Cấp quyền cho Manager (chỉ SELECT, INSERT, UPDATE):**
 ```sql
@@ -635,6 +726,7 @@ mysql> SHOW GRANTS FOR 'apt_manager'@'%';
 +--------------------------------------------------------------------+
 2 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.27:** Quyền manager với SELECT, INSERT, UPDATE
 
 **Cấp quyền hạn chế cho Staff:**
 ```sql
@@ -653,6 +745,7 @@ mysql> SHOW GRANTS FOR 'apt_staff'@'%';
 +---------------------------------------------------------------------+
 4 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.28:** Quyền staff hạn chế chỉ một số bảng
 
 ### 4.3.3. Test Phân Quyền
 
@@ -669,6 +762,7 @@ mysql> SELECT COUNT(*) FROM apartment;
 mysql> DELETE FROM customer WHERE id = 1;
 ERROR 1142 (42000): DELETE command denied to user 'apt_staff'@'localhost' for table 'customer'
 ```
+> **📸 Hình 4.29:** Test phân quyền - staff không thể DELETE
 
 **Kết quả:** Phân quyền hoạt động chính xác, user apt_staff có thể SELECT nhưng không thể DELETE.
 
@@ -724,6 +818,7 @@ mysql> CREATE VIEW apartment_details AS
     -> JOIN district d ON b.district_id = d.id;
 Query OK, 0 rows affected (0.01 sec)
 ```
+> **📸 Hình 4.30:** Tạo view apartment_details thành công
 
 **Kết quả test view:**
 ```sql
@@ -746,6 +841,7 @@ mysql> SELECT * FROM apartment_details LIMIT 3;
 +--------------+---------------+------------+--------------------+---------------------+----------+--------+--------------+------------------------+---------------+
 3 rows in set (0.01 sec)
 ```
+> **📸 Hình 4.31:** Kết quả truy vấn view apartment_details
 
 ### 4.4.2. View active_contracts
 
@@ -797,6 +893,7 @@ mysql> CREATE VIEW active_contracts AS
     -> ORDER BY c.end_date ASC;
 Query OK, 0 rows affected (0.01 sec)
 ```
+> **📸 Hình 4.32:** Tạo view active_contracts thành công
 
 **Kết quả test view hợp đồng đang hoạt động:**
 ```sql
@@ -810,6 +907,7 @@ mysql> SELECT contract_id, customer_name, apartment_name, monthly_rent, end_date
 +-------------+---------------+---------------+-------------+---------------------+
 3 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.33:** Danh sách hợp đồng đang hoạt động
 
 ### 4.4.3. View monthly_revenue (Báo cáo doanh thu)
 
@@ -845,6 +943,7 @@ mysql> CREATE VIEW monthly_revenue AS
     -> ORDER BY year DESC, month DESC;
 Query OK, 0 rows affected (0.01 sec)
 ```
+> **📸 Hình 4.34:** Tạo view monthly_revenue thành công
 
 **Kết quả thống kê doanh thu theo tháng:**
 ```sql
@@ -858,6 +957,7 @@ mysql> SELECT year, month, total_contracts, total_monthly_rent, avg_monthly_rent
 +------+-------+-----------------+-------------------+------------------+
 3 rows in set (0.01 sec)
 ```
+> **📸 Hình 4.35:** Báo cáo doanh thu theo tháng
 
 ### 4.4.4. View available_apartments
 
@@ -903,6 +1003,7 @@ mysql> CREATE VIEW available_apartments AS
     -> ORDER BY a.min_rate ASC;
 Query OK, 0 rows affected (0.01 sec)
 ```
+> **📸 Hình 4.36:** Tạo view available_apartments thành công
 
 **Kết quả test view:**
 ```sql
@@ -922,6 +1023,7 @@ mysql> SELECT name, building_name, district_name, number_of_bedrooms,
 +----------+-----------------------+------------------+--------------------+----------------+
 5 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.37:** Danh sách căn hộ có sẵn theo giá tăng dần
 
 ### 4.4.5. View apartment_equipment_view
 
@@ -959,6 +1061,7 @@ mysql> CREATE VIEW apartment_equipment_view AS
     -> ORDER BY a.name, e.name;
 Query OK, 0 rows affected (0.01 sec)
 ```
+> **📸 Hình 4.38:** Tạo view apartment_equipment_view thành công
 
 **Kết quả test view:**
 ```sql
@@ -984,6 +1087,7 @@ mysql> SELECT apartment_name, equipment_name, equipment_type, equipment_status
 +---------------+----------------------+-------------+------------------+
 12 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.39:** Thiết bị của các căn hộ từ view
 
 ### 4.4.6. Kiểm tra tất cả Views đã tạo
 
@@ -1006,6 +1110,7 @@ mysql> SHOW FULL TABLES WHERE Table_type = 'VIEW';
 +--------------------------+------------+
 5 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.40:** Danh sách 5 views đã tạo thành công
 
 **Thống kê records trong các views:**
 ```sql
@@ -1026,6 +1131,7 @@ mysql> SELECT
 +--------------------------+--------------+
 5 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.41:** Thống kê số records trong các views
 
 **Kết quả:** Đã tạo thành công **5 views** với tổng cộng **49 records** có thể truy vấn được.
 
@@ -1095,6 +1201,8 @@ mysql> SELECT @contract_id as contract_id, @msg as message;
 |           4 | Tạo hợp đồng thành công   |
 +-------------+---------------------------+
 1 row in set (0.00 sec)
+```
+> **📸 Hình 4.42:** Test CreateContract procedure thành công
 
 mysql> CALL CreateContract(3, 2, '2025-12-01', '2026-12-01', 5000000, 10000000, @contract_id, @msg);
 Query OK, 2 rows affected (0.01 sec)
@@ -1107,6 +1215,7 @@ mysql> SELECT @contract_id as contract_id, @msg as message;
 +-------------+---------------------------+
 1 row in set (0.00 sec)
 ```
+> **📸 Hình 4.43:** Test CreateContract procedure lần 2 thành công
 
 ### 4.5.2. Stored Procedure SearchApartments
 
@@ -1154,6 +1263,7 @@ mysql> CALL SearchApartments(2, 15000000, 1, 60.0);
 +----+----------+-------------------+--------------------+----------+----------+--------+
 2 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.44:** Kết quả tìm kiếm apartment theo tiêu chí
 
 ### 4.5.3. Function CalculateTotalRent
 
@@ -1200,6 +1310,7 @@ mysql> SELECT CalculateTotalRent(4) as total_rent;
 +------------+
 1 row in set (0.00 sec)
 ```
+> **📸 Hình 4.45:** Test function CalculateTotalRent thành công
 
 ### 4.5.4. Stored Procedure SearchApartments
 
@@ -1320,6 +1431,7 @@ mysql> SELECT @result as result_message;
 +-------------------------+
 1 row in set (0.00 sec)
 ```
+> **📸 Hình 4.46:** Test ManageApartmentEquipment procedure thành công
 
 ### 4.5.6. Function GetApartmentStatus
 
@@ -1371,6 +1483,7 @@ mysql> SELECT
 +----+----------+--------+-------------+
 5 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.47:** Test function GetApartmentStatus với các căn hộ
 
 ## 4.6. CÀI ĐẶT TRIGGERS
 
@@ -1400,6 +1513,7 @@ mysql> INSERT INTO contract (apartment_id, customer_id, start_date, end_date, mo
     -> VALUES (3, 2, '2025-12-01', '2025-06-01', 5000000, 10000000);
 ERROR 1644 (45000): Ngày kết thúc phải sau ngày bắt đầu
 ```
+> **📸 Hình 4.48:** Test trigger validation lỗi ngày tháng
 
 **Test trigger (case thành công):**
 ```sql
@@ -1407,6 +1521,7 @@ mysql> INSERT INTO contract (apartment_id, customer_id, start_date, end_date, mo
     -> VALUES (3, 2, '2025-12-01', '2026-12-01', 5000000, 10000000);
 Query OK, 1 row affected (0.01 sec)
 ```
+> **📸 Hình 4.49:** Test trigger validation thành công
 
 ### 4.6.2. Trigger log_equipment_status_change
 
@@ -1422,6 +1537,7 @@ mysql> CREATE TABLE equipment_status_log (
     -> );
 Query OK, 0 rows affected (0.03 sec)
 ```
+> **📸 Hình 4.50:** Tạo bảng equipment_status_log thành công
 
 **Script trigger:**
 ```sql
@@ -1451,6 +1567,7 @@ mysql> SELECT * FROM equipment_status_log;
 +----+--------------+------------+------------+---------------------+------------------------+
 1 row in set (0.00 sec)
 ```
+> **📸 Hình 4.51:** Trigger log_equipment_status_change hoạt động
 
 ### 4.6.3. Trigger update_apartment_rented_status
 
@@ -1491,6 +1608,7 @@ mysql> SELECT id, name, rented FROM apartment WHERE id = 5;
 +----+----------+--------+
 1 row in set (0.00 sec)
 ```
+> **📸 Hình 4.52:** Trigger tự động update apartment status
 
 ### 4.6.4. Kiểm tra tất cả Triggers
 
@@ -1511,6 +1629,7 @@ mysql> SHOW TRIGGERS;
 +-------------------------------+--------+-----------+--------------------------------------+
 3 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.53:** Danh sách 3 triggers đã tạo thành công
 
 ## 4.7. SƠ ĐỒ CƠ SỞ DỮ LIỆU
 
@@ -1572,6 +1691,7 @@ mysql> SHOW GRANTS FOR 'apt_backup'@'localhost';
 +-----------------------------------------------------------------------------------+
 2 rows in set (0.00 sec)
 ```
+> **📸 Hình 4.54:** Quyền của user backup chuyên dụng
 
 ### 4.8.2. Thực Hiện Backup Database
 
@@ -1586,6 +1706,7 @@ Enter password:
 $ ls -lh apartment_db_backup_20250612_*.sql
 -rw-r--r-- 1 gb gb 156K Jun 12 10:30 apartment_db_backup_20250612_103045.sql
 ```
+> **📸 Hình 4.55:** File backup database được tạo thành công (156KB)
 
 **Kiểm tra nội dung file backup:**
 ```bash
@@ -2056,6 +2177,7 @@ mysql> SELECT
 ```
 
 **Views usage statistics:**
+
 ```sql
 mysql> SELECT 
     ->     'Total apartments' as metric, COUNT(*) as value FROM apartment
@@ -2187,20 +2309,3 @@ Hệ thống đáp ứng được tất cả yêu cầu của đề tài và s�
 
 #### B. Tài Liệu Tham Khảo
 1. MySQL 8.0 Reference Manual - https://dev.mysql.com/doc/refman/8.0/
-2. Database System Concepts (7th Edition) - Silberschatz, Korth, Sudarshan
-3. MySQL Performance Tuning - Peter Zaitsev, Baron Schwartz
-4. SQL Antipatterns - Bill Karwin
-5. Database Design and Implementation - Edward Sciore
-
-#### C. Lời Cảm Ơn
-Xin chân thành cảm ơn:
-- **Giảng viên hướng dẫn** đã tận tình chỉ bảo trong suốt quá trình thực hiện đề tài
-- **Các bạn đồng nghiệp** đã hỗ trợ review và góp ý để hoàn thiện hệ thống
-- **Cộng đồng MySQL** đã cung cấp tài liệu và best practices quý giá
-
----
-**Ngày hoàn thành:** 11/06/2025  
-**Phiên bản:** 1.0  
-**Tác giả:** [Tên sinh viên]  
-**Lớp:** [Mã lớp]  
-**MSSV:** [Mã số sinh viên]
