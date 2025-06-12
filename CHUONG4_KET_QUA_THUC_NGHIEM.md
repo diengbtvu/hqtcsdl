@@ -1203,7 +1203,7 @@ mysql> SELECT @contract_id as contract_id, @msg as message;
 1 row in set (0.00 sec)
 ```
 > **📸 Hình 4.42:** Test CreateContract procedure thành công
-
+```sql
 mysql> CALL CreateContract(3, 2, '2025-12-01', '2026-12-01', 5000000, 10000000, @contract_id, @msg);
 Query OK, 2 rows affected (0.01 sec)
 
