@@ -8,12 +8,12 @@
 -- =====================================================
 
 -- Tạo database
-CREATE DATABASE IF NOT EXISTS apartment_db 
+CREATE DATABASE IF NOT EXISTS apartment_db1 
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
 
 -- Sử dụng database
-USE apartment_db;
+USE apartment_db1;
 
 -- =====================================================
 -- BƯỚC 2: TẠO CÁC BẢNG CHÍNH (TABLES)
@@ -137,7 +137,7 @@ CREATE TABLE equipment_status_log (
     old_status VARCHAR(255),
     new_status VARCHAR(255),
     change_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    changed_by VARCHAR(255) DEFAULT USER(),
+    changed_by VARCHAR(255),
     CONSTRAINT fk_equipment_status_log_equipment 
         FOREIGN KEY (equipment_id) 
         REFERENCES equipment (id)
