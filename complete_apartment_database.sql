@@ -4,11 +4,14 @@
 -- =====================================================
 
 -- =====================================================
--- BƯỚC 1: TẠO VÀ SỬ DỤNG DATABASE
+-- BƯỚC 1: XÓA VÀ TẠO LẠI DATABASE
 -- =====================================================
 
--- Tạo database
-CREATE DATABASE IF NOT EXISTS apartment_db1 
+-- Xóa database nếu đã tồn tại
+DROP DATABASE IF EXISTS apartment_db1;
+
+-- Tạo database mới
+CREATE DATABASE apartment_db1 
     CHARACTER SET utf8mb4 
     COLLATE utf8mb4_unicode_ci;
 
