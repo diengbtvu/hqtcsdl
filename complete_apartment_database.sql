@@ -571,9 +571,9 @@ INSERT INTO apartment_equipment (apartment_id, equipment_id) VALUES
 
 -- 7.8. INSERT DỮ LIỆU BẢNG CONTRACT
 INSERT INTO contract (apartment_id, customer_id, start_date, end_date, monthly_rent, deposit, payment_status) VALUES
-(2, 1, '2025-01-15', '2026-01-15', 9500000, 19000000, 'ACTIVE'),
-(4, 2, '2025-03-01', '2025-09-01', 7200000, 14400000, 'COMPLETED'),
-(7, 3, '2025-05-10', '2026-05-10', 11000000, 22000000, 'ACTIVE');
+(2, 1, '2025-07-01', '2026-07-01', 9500000, 19000000, 'ACTIVE'),
+(4, 2, '2025-08-01', '2026-02-01', 7200000, 14400000, 'ACTIVE'),
+(7, 3, '2025-09-01', '2026-09-01', 11000000, 22000000, 'ACTIVE');
 
 -- =====================================================
 -- BƯỚC 8: TẠO USER BACKUP VÀ PHÂN QUYỀN
